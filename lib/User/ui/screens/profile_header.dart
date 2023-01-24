@@ -7,7 +7,7 @@ import '../widgets/user_info.dart';
 
 class ProfileHeader extends StatelessWidget {
   UserBloc? userBloc;
-  User? user;
+  UserModel? user;
 
   ProfileHeader({super.key});
 
@@ -48,7 +48,7 @@ class ProfileHeader extends StatelessWidget {
       print("Logged in");
     print(snapshot.data);
 
-    user = User(
+    user = UserModel(
         name: snapshot.data.displayName,
         email: snapshot.data.email,
         photoURL: snapshot.data.photoURL);

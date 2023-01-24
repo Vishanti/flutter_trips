@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_trips/User/bloc/bloc_user.dart';
+import 'package:flutter_trips/User/model/user.dart';
 import 'package:flutter_trips/Widgets/button_green.dart';
 import 'package:flutter_trips/Widgets/gradient_back.dart';
 import 'package:flutter_trips/platzi_trips_cupertino.dart';
@@ -60,7 +62,13 @@ class _SiginScreenState extends State<SiginScreen> {
                   text: "Login with Gmail",
                   onPressed: () {
                     userBloc!.signOut();
-                    userBloc!.signIn().then((value) => print(value));
+                    userBloc!.signIn().then((value) {
+                      userBloc!.updateUserData(UserModel(
+                          uid: value!.user!.uid.toString(),
+                          name: value.user!.displayName.toString(),
+                          email: value.user!.email.toString(),
+                          photoURL: value.user!.photoURL.toString()));
+                    });
                   }, //El codigo se termina hasta antes del .then, pero esto se hace para depuracion en caso de falla
                   height: 50.0,
                   width: 300.0,
