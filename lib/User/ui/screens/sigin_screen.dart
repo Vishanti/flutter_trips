@@ -15,14 +15,13 @@ class SiginScreen extends StatefulWidget {
 }
 
 class _SiginScreenState extends State<SiginScreen> {
-  late double screenWidht;
+  double? screenWidth;
   UserBloc? userBloc;
 
   @override
   Widget build(BuildContext context) {
+    screenWidth = MediaQuery.of(context).size.width;
     userBloc = BlocProvider.of(context);
-    //Obtenemos el tamaño exacto de la pantalla del movil
-    screenWidht = MediaQuery.of(context).size.width;
     return _handleCurrentSession();
   }
 
@@ -48,16 +47,20 @@ class _SiginScreenState extends State<SiginScreen> {
       body: Stack(
         alignment: Alignment.center,
         children: [
-          GradientBack("", double.infinity),
+          GradientBack(height: null),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text("Welcome \n This is you Travel App",
-                  style: TextStyle(
-                      fontSize: 37.0,
-                      fontFamily: "Lato",
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white)),
+            children: <Widget>[
+              Flexible(
+                  child: Container(
+                width: screenWidth,
+                child: const Text("Welcome \n This is you Travel App",
+                    style: TextStyle(
+                        fontSize: 37.0,
+                        fontFamily: "Lato",
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white)),
+              )),
               ButtonGreen(
                   text: "Login with Gmail",
                   onPressed: () {
